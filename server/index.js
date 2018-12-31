@@ -5,6 +5,8 @@ import { renderToString } from 'react-dom/server';
 import Client from '../client/src/app';
 import clientStore from '../client/store';
 const Koa = require('koa');
+const staticKoa = require('koa-static');
+const path = require('path');
 
 const app = new Koa();
 const store = createStore(clientStore)
@@ -12,7 +14,11 @@ const store = createStore(clientStore)
 // app.use(async ctx => {
 // 	ctx.body = 'hello world'
 // })
-app.use(async ctx =>{
+app
+.use(staticKoa(
+  path.join(__dirname, '../dist')
+))
+.use(async ctx => {
   const htmlMarkup = renderToString(<Client/>)
   ctx.body = `
     <!DOCTYPE html>
@@ -24,6 +30,7 @@ app.use(async ctx =>{
       <script>
       window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}
       </script>
+      <script src="../bundle.js"></script>
     </body>
   `
 })
