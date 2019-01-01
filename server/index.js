@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { createStore } from 'redux';
-import { renderToString } from 'react-dom/server';
+import { renderToString, renderToNodeStream } from 'react-dom/server';
 import Client from '../client/src/app';
 import clientStore from '../client/store';
 const Koa = require('koa');

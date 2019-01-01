@@ -12,6 +12,9 @@
       react16后，提供新的API： ReactDOM.hydrate()。用法同render,但它配合renderToString使用，浏览器渲染的过程会尽最大可能保留服务端原有的内容结构  
       
       renderToNodeStream: 该方法产生字节流，通过流形式返回的HTML字符串，与renderToString返回的HTML字符串并无差别。但是使用流有利于页面的初始化加载速度和首屏展现时间。服务端的数据是实时向浏览器传输数据，不是一次性处理完成后才开始向浏览器传输的，这样可以缩短TTFB时间
+
+      renderToString 3.02 TTFB
+      renderToNodeStream 4.22 TTFB
       
       renderToStaticNodeStream: 和renderToNodeStream类似，仍然不会产生data-react-*属性。
       如果对于静态内容输出页面，采用renderToStaticNodeStream方法比较合适，如果页面交互较多，采用renderToNodeStream
@@ -43,3 +46,6 @@
   2. 服务端无法完全复用浏览器端代码
   3. 增加了网络的TTFB(Time To First Byte)时间，TTFB是指从浏览器发起最初的网络请求，到服务其接受到的第一个字节这段时间。包含了TCP连接时间、发送HTTP请求的时间和获得响应消息的第一个字节时间。
 
+# 同构与浏览器端渲染优势对比（主要是DOMContentLoaded和loaded上体现）
+  当初始的HTML文档被完全加载和解析完成后，DOMContentLoaded事件被触发，而无需等待样式表、图片和子框架加载完成。
+  load事件用于检测页面是否完成加载完成。

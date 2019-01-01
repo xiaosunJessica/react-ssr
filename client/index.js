@@ -7,7 +7,7 @@ import App from './src/app.js'
 import clientStore from './store';
 const initialState = window.__INITIAL_STATE;
 const store = createStore(clientStore, initialState);
-hydrate(
+render(
   <Provider store={store}>
     <App />
   </Provider>, document.getElementById('app'))
